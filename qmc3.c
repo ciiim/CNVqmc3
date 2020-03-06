@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#define MASKLENGTH 128
+#define MASKLENGTH 128 //掩码长度
 int MoveLeftArray(int[], int);
 int main(int argc, char *argv[])
 {
@@ -14,12 +14,12 @@ int main(int argc, char *argv[])
                             0xc3, 0x0e, 0x74, 0xbb, 0x90, 0xbc, 0x3f, 0x92, 0xd8, 0x7e, 0x11, 0x13, 0x9f, 0x23, 0x95, 0x5e,
                             0xc3, 0x00, 0x09, 0x5b, 0x9f, 0x62, 0x66, 0xa1, 0xd8, 0x52, 0xf7, 0x67, 0x90, 0xca, 0xd6, 0x4a};
     //mask
-    FILE *fp1;             //被读取的文件的指�?
-    FILE *fp2;             //新建文件的指�?
+    FILE *fp1;             //被读取的文件的指针
+    FILE *fp2;             //新建文件的指针
     char name[100];        //名字
-    char bbuffer, abuffer; //缓冲�?,a-after,b-before
-    int i = 0;             //i循环掩码
-    static int c = 0;      //c�������ⲿѭ��
+    char bbuffer, abuffer; //缓冲区,a-after,b-before
+    int i = 0;             //循环掩码
+    static int c = 0;      //判断一组掩码是否使用完毕
     short code = 0;
     if (argc <= 1)
     {
@@ -35,7 +35,7 @@ int main(int argc, char *argv[])
         exit(1);
     }
     strncpy(name, argv[1], 99);
-    char *pos = strrchr(name, '.');
+    char *pos = strrchr(name, '.');//找到后缀名起始的标志“.”
     if (((strlen(name) + 4) <= 100) && *(pos + 4) == '3') //修改后缀名
     {
         *(++pos) = 'm';
@@ -43,13 +43,7 @@ int main(int argc, char *argv[])
         *(++pos) = '3';
         *(++pos) = '\0';
     }
-    //else
-    //{
-    //    printf("��֧�ֵĸ�ʽ");
-    //    exit(1);
-    //}
-
-    else if (((strlen(name) + 4) <= 100) && *(pos + 4) == 'f')
+    else if (((strlen(name) + 4) <= 100) && *(pos + 4) == 'f')//修改后缀名
     {
         *(++pos) = 'f';
         *(++pos) = 'l';
@@ -70,7 +64,7 @@ int main(int argc, char *argv[])
     fseek(fp1, 0, SEEK_END);
     size = ftell(fp1);
     fseek(fp1, 0, SEEK_SET);
-    char *buf = malloc(size);
+    char *buf = malloc(size);//为要转换的文件分配空间
     //for(int i=0;i<10;i++)//test
 
     //char *buff1 = malloc( size );
@@ -96,7 +90,8 @@ int main(int argc, char *argv[])
     fclose(fp1);
     fclose(fp2);
 }
-int MoveLeftArray(int Mmask[], int length)
+
+int MoveLeftArray(int Mmask[], int length)//移动数组
 {
     int temp = Mmask[0]; //
     for (int i = 1; i < length; i++)
