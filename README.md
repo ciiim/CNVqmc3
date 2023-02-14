@@ -1,4 +1,4 @@
-# CNVqmc3
+# CNVqmc3-OUT-OF-DATE
 A tool for convert qmc3 or qmcflac to mp3 or flac.
 
 [CNVqmc3] 命令行启动
